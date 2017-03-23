@@ -1,5 +1,6 @@
 package cooksys.sbm.db.entity;
 
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,42 +11,51 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import cooksys.sbm.db.entity.superclass.BaseEntity;
 import cooksys.sbm.db.entity.embeddable.Credentials;
 import cooksys.sbm.db.entity.embeddable.Profile;
+import cooksys.sbm.db.entity.superclass.BaseEntity;
+
 
 
 @Entity
 @Table (name = "UserTable")
+
 public class User implements BaseEntity<Long> {
 	
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 	
 	@NotNull
 	@Column(name="user_username")
 	private String username;
 	
+	
 	private Boolean exist;
 	
-	@NotNull
+	@Column
+	private Timestamp joined;
+	
+	//@NotNull
 	private Credentials credentials;
 	
-	@NotNull
+	
 	private Profile profile;
 	
 	@ManyToMany
 	private Set<User> followers;
 	
 	@ManyToMany
+	
 	private Set<User> following;
 	
-//	@ManyToMany
-//	private Set<Tweet> likedtweets;
-//	
-//	@ManyToMany
-//	private Set<Tweet> mentionedtweets;
+	@ManyToMany
+	
+	private Set<Tweet> likedtweets;
+	
+	@ManyToMany
+	private Set<Tweet> mentionedtweets;
+	
 	
 	public Long getId() {
 		return id;
@@ -92,11 +102,12 @@ public class User implements BaseEntity<Long> {
 			return false;
 		return true;
 	}
-
+	
+	
 	public Credentials getCredentials() {
 		return credentials;
 	}
-
+	
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
@@ -125,21 +136,21 @@ public class User implements BaseEntity<Long> {
 		this.following = following;
 	}
 
-//	public Set<Tweet> getLikedtweets() {
-//		return likedtweets;
-//	}
-//
-//	public void setLikedtweets(Set<Tweet> likedtweets) {
-//		this.likedtweets = likedtweets;
-//	}
-//
-//	public Set<Tweet> getMentionedtweets() {
-//		return mentionedtweets;
-//	}
-//
-//	public void setMentionedtweets(Set<Tweet> mentionedtweets) {
-//		this.mentionedtweets = mentionedtweets;
-//	}
+	public Set<Tweet> getLikedtweets() {
+		return likedtweets;
+	}
+
+	public void setLikedtweets(Set<Tweet> likedtweets) {
+		this.likedtweets = likedtweets;
+	}
+
+	public Set<Tweet> getMentionedtweets() {
+		return mentionedtweets;
+	}
+
+	public void setMentionedtweets(Set<Tweet> mentionedtweets) {
+		this.mentionedtweets = mentionedtweets;
+	}
 
 	
 
