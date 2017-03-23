@@ -1,6 +1,7 @@
 package cooksys.sbm.api.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cooksys.sbm.api.service.UserService;
+import cooksys.sbm.db.entity.Tweet;
+import cooksys.sbm.db.entity.User;
 import cooksys.sbm.db.entity.repository.UserRepository;
 import cooksys.sbm.dto.dto.UserDto;
 import cooksys.sbm.dto.validation.group.RequiredFieldsNotNull;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 
 
 @RestController
@@ -37,13 +41,13 @@ public class UserController {
 	}
 	
 	@GetMapping("validate/username/exists/@{username}")
-	public String ValidateUsername(){
-		return "";
+	public Boolean UsernameExist(@RequestParam String username){
+		return userService.userNameExist(username);
 	}
 	
 	@GetMapping("validate/username/available/@{username}")
-	public String AvailableUsername(){
-		return "";
+	public Boolean UsernameAvailable(@RequestParam String username){
+		return userService.userNameAvailable(username);
 		
 	}
 	
@@ -69,57 +73,65 @@ public class UserController {
 	}
 	
 	@PatchMapping("@{Username}")
-	public String patchUser()
+	@ApiOperation(value = "", nickname = "updateUser")
+	public void patchUser(@RequestParam String username, @RequestBody @Validated UserDto userDto, HttpServletResponse httpResponse)
 	{
-		return "";
+		userService.patch(username, userDto);
 	}
 	
-	@DeleteMapping("@{Username}")
-	public String deleteUser()
+	@DeleteMapping("@{Username}") //Needs to be changed so when called it just changes the exist variable to true
+	@ApiOperation(value = "", nickname = "deleteUser")
+	public String deleteUser(@RequestParam String username)
 	{
-		return "";
+		userService.delete(username);
+		return "userDeleted";
 	}
 	
 	@PostMapping("@{Username}/follow")
-	public String PostUserFollow()
+	public String PostUserFollow(@RequestParam String username, @RequestBody @Validated UserDto userDto, HttpServletResponse httpResponse)
 	{
-		return "";
+		userService.postUserFollow(username,userDto);
+		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		return "Follwed User";
 	}
 	
-	@PostMapping("@{Username}/unfollow")
-	public String PostUserUnfollow()
+	@DeleteMapping("@{Username}/unfollow")
+	public String PostUserUnfollow(@RequestParam String username, @RequestBody @Validated UserDto userDto, HttpServletResponse httpResponse)
 	{
-		return "";
+		userService.postUserUnfollow(username,userDto);
+		return "Person Unfollowed";
 	}
 	
 	@GetMapping("@{Username}/feed")
 	public String GetUserFeed()
 	{
-		return "";
+		return ""; // This will come come fron the tweet rep
 	}
 	
 	@GetMapping("@{Username}/tweets")
 	public String GetUserTweets()
 	{
-		return "";
+		return ""; // This will come come fron the tweet repo
 	}
 	
 	@GetMapping("@{Username}/mentions")
-	public String GetUserMentions()
+	public Set<Tweet> GetUserMentions(@RequestParam String username)
 	{
-		return "";
+		return userService.getMentions(username);
 	}
 	
 	@GetMapping("@{Username}/followers")
-	public String GetUserFollowers()
+	public Set<User> GetUserFollowers(@RequestParam String username)
 	{
-		return "";
+		 return userService.getUserFollowers(username);
+		
+		
 	}
 	
 	@GetMapping("@{Username}/following")
-	public String GetUserFollowing()
+	public Set<User> GetUserFollowing(@RequestParam String username)
 	{
-		return "";
+		return userService.getUserFollowing(username);
 	}
 	
 	

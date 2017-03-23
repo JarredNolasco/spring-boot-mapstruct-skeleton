@@ -1,13 +1,18 @@
 package cooksys.sbm.dto.dto;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import cooksys.sbm.db.entity.User;
 import cooksys.sbm.db.entity.embeddable.Credentials;
 import cooksys.sbm.db.entity.embeddable.Profile;
-import cooksys.sbm.dto.validation.group.RequiredFieldsNotNull;
+
 
 
 
@@ -21,17 +26,16 @@ public class UserDto {
 	@Column(name="user_username")
 	private String username;
 	
-	private Boolean exist;
+	//private Boolean exist;
 	
 	//@Column
 	//private Timestamp joined;
 	
-	@NotNull 
+	//@NotNull 
 	private Credentials credentials;
-	
-	
+
 	private Profile profile;
-	
+
 
 	public long getId() {
 		return id;
@@ -49,21 +53,13 @@ public class UserDto {
 		this.username = username;
 	}
 
-	public Boolean getExist() {
-		return exist;
-	}
-
-	public void setExist(Boolean exist) {
-		this.exist = exist;
-	}
-
-	public Credentials getCredentials() {
-		return credentials;
-	}
-
-	public void setCredentials(Credentials credentials) {
-		this.credentials = credentials;
-	}
+//	public Boolean getExist() {
+//		return exist;
+//	}
+//
+//	public void setExist(Boolean exist) {
+//		this.exist = exist;
+//	}
 
 	public Profile getProfile() {
 		return profile;
@@ -94,6 +90,10 @@ public class UserDto {
 			return false;
 		return true;
 	}
+
+
+
+
 	
 	
 

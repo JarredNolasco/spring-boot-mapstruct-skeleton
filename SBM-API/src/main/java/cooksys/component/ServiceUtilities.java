@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import cooksys.sbm.db.entity.superclass.BaseEntity;
 import cooksys.sbm.dto.exception.ReferencedEntityNotFoundException;
 
+
+
 @Component
 public class ServiceUtilities {
 	

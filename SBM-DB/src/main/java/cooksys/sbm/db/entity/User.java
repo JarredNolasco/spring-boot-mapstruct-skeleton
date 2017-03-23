@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,28 +31,27 @@ public class User implements BaseEntity<Long> {
 	@NotNull
 	@Column(name="user_username")
 	private String username;
-	
-	
+
 	private Boolean exist;
 	
-	@Column
+	//@Column
 	private Timestamp joined;
 	
 	//@NotNull
 	private Credentials credentials;
-	
-	
+
 	private Profile profile;
+	
+	@ManyToOne
+	private User mainprofile;
 	
 	@ManyToMany
 	private Set<User> followers;
 	
 	@ManyToMany
-	
 	private Set<User> following;
 	
 	@ManyToMany
-	
 	private Set<Tweet> likedtweets;
 	
 	@ManyToMany
