@@ -11,6 +11,7 @@ import cooksys.sbm.db.entity.Tag;
 import cooksys.sbm.db.entity.Tweet;
 import cooksys.sbm.db.entity.User;
 import cooksys.sbm.db.entity.repository.TagRepository;
+import cooksys.sbm.db.entity.repository.TweetRepository;
 import cooksys.sbm.db.entity.repository.UserRepository;
 import cooksys.sbm.dto.dto.TagDto;
 import cooksys.sbm.dto.mapper.TagMapper;
@@ -21,14 +22,16 @@ public class TagService {
 	public class UserService {
 		
 		private final TagRepository tagRepository;
+		private final TweetRepository tweetRepository;
 		private final TagMapper tagMapper;
 		private final ServiceUtilities serviceUtilities;
 		private final IdChecker idChecker;
 		
-		public UserService(TagRepository tagRepository, TagMapper tagMapper,ServiceUtilities serviceUtilities)
+		public UserService(TagRepository tagRepository,TweetRepository tweetRepository, TagMapper tagMapper,ServiceUtilities serviceUtilities)
 		{
 			super();
 			this.tagRepository = tagRepository;
+			this.tweetRepository = tweetRepository;
 			this.tagMapper = tagMapper;
 			this.serviceUtilities = serviceUtilities;
 			this.idChecker = serviceUtilities.buildIdChecker(Tag.class, this::has);
@@ -48,9 +51,10 @@ public class TagService {
 	                .collect(Collectors.toList());
 	}
 
-	public Boolean checkIfExist() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean checkIfExist(Long id) {
+		if (id != null)
+            return tagRepository.exists(id);
+        return false;
 	}
 
 	public List<Tweet> getTagLabels(String tag) {
@@ -58,4 +62,5 @@ public class TagService {
 		return null;
 	}
 
+}
 }

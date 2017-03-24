@@ -122,6 +122,17 @@ public class TweetService {
 		return tweetRepository.findById(id).getContent();
 	}
 
+	public Tweet postTweetRepost(Long id) {
+		Tweet oldTweet = tweetRepository.findById(id);
+		Tweet newTweet = new Tweet();
+		newTweet.setContent(oldTweet.getContent());
+		newTweet.setRepostOriginal(oldTweet);
+		tweetRepository.save(newTweet);
+		return newTweet;
+	    
+		
+	}
+
 	
 }
 	

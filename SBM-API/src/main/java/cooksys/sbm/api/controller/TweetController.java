@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cooksys.sbm.api.service.TweetService;
+import cooksys.sbm.db.entity.Tweet;
 import cooksys.sbm.db.entity.embeddable.Credentials;
 import cooksys.sbm.dto.dto.TweetDto;
 import cooksys.sbm.dto.validation.group.RequiredFieldsNotNull;
@@ -76,9 +77,9 @@ public class TweetController {
 	}
 	
 	@PostMapping("{id}/repost")
-	public String postTweetRepost()
+	public Tweet postTweetRepost(@RequestParam Long id)
 	{
-		return "";
+		return tweetSerivce.postTweetRepost(id);
 	}
 	
 	@GetMapping("{id}/tags")

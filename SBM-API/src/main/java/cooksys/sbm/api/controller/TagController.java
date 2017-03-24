@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cooksys.sbm.api.service.TagService;
@@ -28,8 +29,8 @@ public class TagController {
 	}
 	
 	@GetMapping("validate/tag/exists/{label}")
-	public Boolean ValidateTag(){
-		return tagService.checkIfExist();
+	public Boolean ValidateTag(@RequestParam Long Id){
+		return tagService.checkIfExist(Id);
 	}
 	
 	@GetMapping

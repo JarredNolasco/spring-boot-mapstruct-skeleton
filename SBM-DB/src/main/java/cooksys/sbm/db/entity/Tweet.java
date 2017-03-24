@@ -93,6 +93,23 @@ public class Tweet implements BaseEntity<Long>{
 	public void setExist(Boolean exist) {
 		this.exist = exist;
 	}
+
+	public Set<Tweet> getRepostof() {
+		return repostof;
+	}
+
+	public void setRepostof(Set<Tweet> repostof) {
+		this.repostof = repostof;
+	}
+
+	public Tweet getRepostOriginal() {
+		return repostOriginal;
+	}
+
+	public void setRepostOriginal(Tweet repostOriginal) {
+		this.repostOriginal = repostOriginal;
+	}
+	
 	
 	
 }
