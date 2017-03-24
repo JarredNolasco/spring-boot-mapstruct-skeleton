@@ -58,7 +58,7 @@ public class TweetService {
 	
 	public Long post(TweetDto tweetDto) {
 		
-		//System.out.println("+++++++++++++++++"+tweetDto.getContent());
+		
 		String [] contentStringArray = tweetDto.getContent().split("\\s+");
 		for (int i = 0; i < contentStringArray.length; i++) {
 			

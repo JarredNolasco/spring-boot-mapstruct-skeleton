@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cooksys.sbm.api.service.UserService;
 import cooksys.sbm.db.entity.Tweet;
 import cooksys.sbm.db.entity.User;
-import cooksys.sbm.db.entity.repository.UserRepository;
 import cooksys.sbm.dto.dto.UserDto;
 import cooksys.sbm.dto.validation.group.RequiredFieldsNotNull;
 import io.swagger.annotations.Api;

@@ -1,5 +1,6 @@
 package cooksys.sbm.db.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -11,7 +12,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.data.jpa.repository.Temporal;
 
 import cooksys.sbm.db.entity.embeddable.Credentials;
 import cooksys.sbm.db.entity.embeddable.Profile;
@@ -34,8 +38,8 @@ public class User implements BaseEntity<Long> {
 
 	private Boolean exist;
 	
-	//@Column
-	private Timestamp joined;
+	//@Temporal(TemporalType.TIMESTAMP)
+	private Date timecreated;
 	
 	//@NotNull
 	private Credentials credentials;
