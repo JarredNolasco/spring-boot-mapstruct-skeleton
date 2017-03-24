@@ -13,10 +13,6 @@ import cooksys.sbm.db.entity.User;
 import cooksys.sbm.db.entity.embeddable.Credentials;
 import cooksys.sbm.db.entity.embeddable.Profile;
 
-
-
-
-
 public class UserDto {
 	
 
@@ -89,6 +85,14 @@ public class UserDto {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
 	}
 
 

@@ -1,15 +1,26 @@
 package cooksys.sbm.api.controller;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cooksys.sbm.api.service.TagService;
 import cooksys.sbm.api.service.TweetService;
+import cooksys.sbm.db.entity.embeddable.Credentials;
+import cooksys.sbm.dto.dto.TweetDto;
+import cooksys.sbm.dto.validation.group.RequiredFieldsNotNull;
 import io.swagger.annotations.ApiOperation;
+
+
 
 @RestController
 @Validated
@@ -26,32 +37,35 @@ public class TweetController {
 
 	@GetMapping
 	@ApiOperation(value = "", nickname = "getAllTweets")
-	public String index() {
+	public List<TweetDto> index() {
 		return tweetSerivce.index();
 		}
 	
 	@PostMapping
 	@ApiOperation(value = "", nickname = "postTweet")
-	public String postTweet() {
-		return "";
+	public TweetDto postTweet(@RequestBody @Validated(RequiredFieldsNotNull.class) TweetDto tweetDto, HttpServletResponse httpResponse) {
+		Long Id = tweetSerivce.post(tweetDto);
+		httpResponse.setStatus(HttpServletResponse.SC_CREATED);
+		return tweetSerivce.get(Id);
+		
 		}
 	
 	@GetMapping("{id}")
-	public String getTweet()
+	public TweetDto getTweet(@RequestParam Long id)
 	{
-		return "";
+		return tweetSerivce.get(id);
 	}
 	
 	@DeleteMapping("{id}")
-	public String deleteTweet()
+	public void deleteTweet(@RequestParam Long id)
 	{
-		return "";
+		tweetSerivce.delete(id);
 	}
 	
 	@PostMapping("{id}/like")
-	public String postTweetLike()
+	public void postTweetLike(@RequestBody @Validated(RequiredFieldsNotNull.class) Credentials cred,@RequestParam Long id)
 	{
-		return "";
+		tweetSerivce.postTweetLike(cred,id);
 	}
 	
 	
@@ -68,9 +82,9 @@ public class TweetController {
 	}
 	
 	@GetMapping("{id}/tags")
-	public String getTagsFromTweet()
+	public String getTagsFromTweet(@RequestParam Long id)
 	{
-		return "";
+		return tweetSerivce.getTagFromTweet(id);
 	}
 	
 	@GetMapping("{id}/likes")
@@ -80,9 +94,9 @@ public class TweetController {
 	}
 	
 	@GetMapping("{id}/context")
-	public String getContextFromTweet()
+	public String getContextFromTweet(Long Id)
 	{
-		return "";
+		return tweetSerivce.getContextFromTweet(Id);
 	}
 	
 	@GetMapping("{id}/replies")

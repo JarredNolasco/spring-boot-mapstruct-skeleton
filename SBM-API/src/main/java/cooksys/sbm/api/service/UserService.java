@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
 import cooksys.component.ServiceUtilities;
 import cooksys.component.ServiceUtilities.IdChecker;
 import cooksys.sbm.db.entity.Tweet;
@@ -13,9 +12,6 @@ import cooksys.sbm.db.entity.User;
 import cooksys.sbm.db.entity.repository.UserRepository;
 import cooksys.sbm.dto.dto.UserDto;
 import cooksys.sbm.dto.mapper.UserMapper;
-
-
-
 
 @Service
 public class UserService {
@@ -119,6 +115,8 @@ public class UserService {
 		User user = userRepository.findByUsername(username);
 		return user.getMentionedtweets();
 	}
+
+	
     
     
     

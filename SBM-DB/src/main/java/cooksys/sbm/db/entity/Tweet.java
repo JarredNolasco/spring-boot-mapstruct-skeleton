@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import cooksys.sbm.db.entity.superclass.BaseEntity;
@@ -28,11 +29,19 @@ public class Tweet implements BaseEntity<Long>{
 	
 	private String content;
 	
+	private Boolean exist;
+	
+	@OneToMany(mappedBy = "original")
+	private Set<Tweet> replies;
+	
+	@ManyToOne 
+	private Tweet original;
+	
+	@OneToMany(mappedBy = "repostOriginal")
+	private Set<Tweet> repostof;
+	
 	@ManyToOne
-	private Tweet inreplyto;
-
-	@ManyToOne
-	private Tweet repostof;
+	private Tweet repostOriginal;
 	
 	@ManyToMany
 	private Set<User> likedBy;
@@ -69,28 +78,20 @@ public class Tweet implements BaseEntity<Long>{
 		this.content = content;
 	}
 
-	public Tweet getInreplyto() {
-		return inreplyto;
-	}
-
-	public void setInreplyto(Tweet inreplyto) {
-		this.inreplyto = inreplyto;
-	}
-
-	public Tweet getRepostof() {
-		return repostof;
-	}
-
-	public void setRepostof(Tweet repostof) {
-		this.repostof = repostof;
-	}
-
 	public Set<User> getLikedBy() {
 		return likedBy;
 	}
 
 	public void setLikedBy(Set<User> likedBy) {
 		this.likedBy = likedBy;
+	}
+
+	public Boolean getExist() {
+		return exist;
+	}
+
+	public void setExist(Boolean exist) {
+		this.exist = exist;
 	}
 	
 	

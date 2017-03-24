@@ -51,7 +51,7 @@ public class User implements BaseEntity<Long> {
 	@ManyToMany
 	private Set<User> following;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="likedBy")
 	private Set<Tweet> likedtweets;
 	
 	@ManyToMany

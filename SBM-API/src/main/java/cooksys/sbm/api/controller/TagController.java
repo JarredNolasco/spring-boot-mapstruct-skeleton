@@ -1,12 +1,18 @@
 package cooksys.sbm.api.controller;
 
+import java.util.List;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cooksys.sbm.api.service.TagService;
-import cooksys.sbm.api.service.UserService;
+import cooksys.sbm.db.entity.Tag;
+import cooksys.sbm.db.entity.Tweet;
+
+
+
 
 @RestController
 @Validated
@@ -22,18 +28,18 @@ public class TagController {
 	}
 	
 	@GetMapping("validate/tag/exists/{label}")
-	public String ValidateTag(){
-		return "";
+	public Boolean ValidateTag(){
+		return tagService.checkIfExist();
 	}
 	
 	@GetMapping
-	public String GetTags(){
-		return "";
+	public List<Tag> GetTags(){
+		return tagService.getIndex();
 	}
 	
 	@GetMapping("/{label}")
-	public String Validatetag(){
-		return "";
+	public List<Tweet> Validatetag(String tag){
+		return tagService.getTagLabels(tag);
 	}
 
 }

@@ -7,5 +7,5 @@ import cooksys.sbm.db.entity.User;
 
 public interface TweetRepository extends JpaRepository<Tweet,Long> {
 
-	User findById(Long id);
+	Tweet findById(Long id);
 }
